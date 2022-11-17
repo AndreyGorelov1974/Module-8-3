@@ -77,20 +77,12 @@ int main() {
     // подсчитываем количество кубиков которые можно сделать из заготовки
     int quantityCube = ((int)xWorkPiece / 5) * ((int)yWorkPiece / 5) * ((int)zWorkPiece / 5);
 
-    // минимальное количество кубиков в одной стороне набора
-    int numberSet = 2;
-    int quantityCubeSet = std::pow(numberSet, 3);
+    // количество кубиков в одной стороне набора
+    int edgeCubeSet = std::cbrt(quantityCube);
 
-    if (quantityCube < quantityCubeSet) {
-        std::cout << "Количество кубиков которые можно изготовить из этого бруска - " << quantityCube << " шт." << std::endl;
-        std::cout << "Из них невозможно составить минимальный набор для продажи." << std::endl;
-    }
-    else {
-        while ((quantityCube % quantityCubeSet) > 0) {
-            numberSet++;
-            quantityCubeSet = std::pow(numberSet, 3);
-         }
-        std::cout << "Количество кубиков которые можно изготовить из этого бруска - " << quantityCube << " шт." << std::endl;
-        std::cout << "Из них можно составить набор из " << quantityCubeSet << " кубиков." << std::endl;
-    }
+    // количество кубиков в наборе
+    int quantityCubeSet = std::pow(edgeCubeSet, 3);
+
+    std::cout << "Количество кубиков которые можно изготовить из этого бруска - " << quantityCube << " шт." << std::endl;
+    std::cout << "количество наборов по " << quantityCubeSet << " кубиков, которое можно составить из них будет - " << quantityCube / quantityCubeSet << " шт." << std::endl;
 }

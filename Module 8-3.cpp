@@ -47,29 +47,31 @@ int main() {
 
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
+    //минимальные размеры кубика
+    float minX = 5.0f, minY = 5.0f, minZ = 5.0f;
 
     std::cout << "Введите размеры бруска (в сатиметрах)" << std::endl;
     std::cout << "X: ";
     float xWorkPiece;
     std::cin >> xWorkPiece;
-    while ((xWorkPiece - 5.0f) <= FLT_EPSILON) {
-        std::cout << "Рзамер должен быть больше 5 см. Введите снова: ";
+    while (xWorkPiece < minX) {
+        std::cout << "Рзамер должен быть больше или равен 5 см. Введите снова: ";
         std::cin >> xWorkPiece;
     }
 
     std::cout << "Y: ";
     float yWorkPiece;
     std::cin >> yWorkPiece;
-    while ((yWorkPiece - 5.0f) <= FLT_EPSILON) {
-        std::cout << "Рзамер должен быть больше 5 см. Введите снова: ";
+    while (yWorkPiece < minY) {
+        std::cout << "Рзамер должен быть больше или равен 5 см. Введите снова: ";
         std::cin >> yWorkPiece;
     }
 
     std::cout << "Z: ";
     float zWorkPiece;
     std::cin >> zWorkPiece;
-    while ((zWorkPiece - 5.0f) <= FLT_EPSILON) {
-        std::cout << "Рзамер должен быть больше 5 см. Введите снова: ";
+    while (zWorkPiece < minZ) {
+        std::cout << "Рзамер должен быть больше или равен 5 см. Введите снова: ";
         std::cin >> zWorkPiece;
     }
     // подсчитываем количество кубиков которые можно сделать из заготовки
@@ -80,15 +82,15 @@ int main() {
     int quantityCubeSet = std::pow(numberSet, 3);
 
     if (quantityCube < quantityCubeSet) {
-        std::cout << "Из этого бруска можно изготовить " << quantityCube << " кубиков." << std::endl;
-        std::cout << "Из невозможно составить минимальный нбор для продажи." << std::endl;
+        std::cout << "Количество кубиков которые можно изготовить из этого бруска - " << quantityCube << " шт." << std::endl;
+        std::cout << "Из них невозможно составить минимальный набор для продажи." << std::endl;
     }
     else {
-        while ((quantityCube / quantityCubeSet) > 0) {
+        while ((quantityCube % quantityCubeSet) > 0) {
             numberSet++;
             quantityCubeSet = std::pow(numberSet, 3);
          }
-        std::cout << "Из этого бруска можно изготовить " << quantityCube << " кубиков." << std::endl;
+        std::cout << "Количество кубиков которые можно изготовить из этого бруска - " << quantityCube << " шт." << std::endl;
         std::cout << "Из них можно составить набор из " << quantityCubeSet << " кубиков." << std::endl;
     }
 }

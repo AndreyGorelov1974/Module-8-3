@@ -47,8 +47,12 @@ int main() {
 
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    //минимальные размеры кубика
+
+    //минимальные размеры заготовки
     float minX = 5.0f, minY = 5.0f, minZ = 5.0f;
+
+    //минимальные размеры набора
+    int  minSet = 8;
 
     std::cout << "Введите размеры бруска (в сатиметрах)" << std::endl;
     std::cout << "X: ";
@@ -74,15 +78,22 @@ int main() {
         std::cout << "Рзамер должен быть больше или равен 5 см. Введите снова: ";
         std::cin >> zWorkPiece;
     }
+    
     // подсчитываем количество кубиков которые можно сделать из заготовки
     int quantityCube = ((int)xWorkPiece / 5) * ((int)yWorkPiece / 5) * ((int)zWorkPiece / 5);
 
-    // количество кубиков в одной стороне набора
-    int edgeCubeSet = std::cbrt(quantityCube);
+    if (quantityCube < minSet) {
+        std::cout << "Количество кубиков которые можно изготовить из этого бруска - " << quantityCube << " шт. Из них не получиться составить не один набор для продажи." << std::endl;
+    }
+    else {
+        // количество кубиков в одной стороне набора
+        int edgeCubeSet = std::cbrt(quantityCube);
 
-    // количество кубиков в наборе
-    int quantityCubeSet = std::pow(edgeCubeSet, 3);
+        // количество кубиков в наборе
+        int quantityCubeSet = std::pow(edgeCubeSet, 3);
 
-    std::cout << "Количество кубиков которые можно изготовить из этого бруска - " << quantityCube << " шт." << std::endl;
-    std::cout << "количество наборов по " << quantityCubeSet << " кубиков, которое можно составить из них будет - " << quantityCube / quantityCubeSet << " шт." << std::endl;
+        std::cout << "Количество кубиков которые можно изготовить из этого бруска - " << quantityCube << " шт." << std::endl;
+        std::cout << "Количество наборов по " << quantityCubeSet << " кубиков, которое можно составить из них будет - " << quantityCube / quantityCubeSet << " шт." << std::endl;
+    }
+
 }
